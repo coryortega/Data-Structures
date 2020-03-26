@@ -38,15 +38,27 @@ class BinarySearchTree:
     # False if it does not
     def contains(self, target):
         # if node.value == findvalue
+        if self.value == target:
             # return true
-        # else
-            # if find < node.value
-                # if node.left
-                    # find on left node
-                # else
-                    # if node.right
-                        # find on riight node
-        pass
+            return True
+        # if the value doesn't exist
+        elif self.value is None:
+            # return false
+            return False
+        # if the target is LESS than the current value, travel down the left side
+        elif target < self.value:
+            if self.left is not None:
+                return self.left.contains(target)
+            else:
+                return False
+        # if the target is GREATER than current value, travel down the right side
+        elif target > self.value:
+            if self.right is not None:
+                return self.right.contains(target)
+        # if it doesn't exist and all hope is lost, return false
+        else:
+            return False
+
 
     # Return the maximum value found in the tree
     def get_max(self):
@@ -56,19 +68,27 @@ class BinarySearchTree:
             return self.value
         # else, if there IS a value to the right
         else:
+            # I think of 'current' as an iterator
             current = self
+            # so if 'current' exists
             if current:
+                # this while loop will run until it reaches the end of the tree, where it will return 'None'
                 while current.right is not None:
-                    print(current.value)
+                    # updates 'current' to the next node every iteration
                     current = current.right
+                # once the loop reaches the last value and realizes there's no next, it will return the final value
                 return current.value
-            # return node.value
-        pass
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        if self.value is not None:
+            cb(self.value)
+        if self.left is not None:
+            self.left.for_each(cb)
+        if self.right is not None:
+            self.right.for_each(cb)
+        
 
     # DAY 2 Project -----------------------
 
