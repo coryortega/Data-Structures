@@ -4,6 +4,7 @@ from dll_queue import Queue
 from dll_stack import Stack
 
 
+
 class BinarySearchTree:
     def __init__(self, value):
         self.value = value
@@ -95,17 +96,56 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        
+        if node.left is not None:  # to print in order, need to take the left first
+            node.left.in_order_print(node.left)
+
+        print(node.value)
+        if node.right is not None:
+            node.right.in_order_print(node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        # iterative BFT:
+        # create queue
+        # add root to queue
+        # node = head of queue
+        # print
+        # while queue is not empty, add children of root to queue
+        # pop node of queue
+
+        queue = Queue()                 
+        queue.enqueue(node)             
+        while queue.len() > 0:                
+            popped = queue.dequeue()                              
+            print(popped.value)   
+            if popped.left:                          
+                queue.enqueue(popped.left)
+            if popped.right:                                       
+                queue.enqueue(popped.right)
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        # iterative DFT:
+        # create stack
+        # add root to stack, while stack is not empty
+        # node = pop top of stack
+        # print
+        # add chiildren to node of stack
+
+        stack = Stack()                                           
+        stack.push(node)                              
+        while stack.len() > 0:                               
+            popped = stack.pop()                              
+            print(popped.value)                  
+            if popped.left:                                       
+                stack.push(popped.left)
+            if popped.right:                                        
+                stack.push(popped.right)
+
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
